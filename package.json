@@ -8,7 +8,12 @@
     "dev": "nodemon index.js",
     "test": "node test.js",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "docker:build": "./scripts/docker-build.sh",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:restart": "docker-compose restart"
   },
   "keywords": [
     "monitoring",

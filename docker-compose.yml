@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  server-monitor:
+    build: .
+    container_name: server-monitoring-bot
+    restart: unless-stopped
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+    
+    # Mount environment file
+    env_file:
+      - .env
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check passed')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Labels for organization
+    labels:
+      - "com.example.service=server-monitoring"
+      - "com.example.version=1.0.0"

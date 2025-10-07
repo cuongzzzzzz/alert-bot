@@ -20,6 +20,26 @@ A Node.js application that monitors server health by periodically checking a lis
 
 ## Installation
 
+### Option 1: Docker (Recommended)
+
+```bash
+# 1. Clone the repository
+git clone <repository-url>
+cd alert-bot
+
+# 2. Configure environment
+cp env.example .env
+# Edit .env with your settings
+
+# 3. Run with Docker Compose
+docker-compose up -d
+
+# 4. View logs
+docker-compose logs -f
+```
+
+### Option 2: Node.js Direct
+
 1. **Clone or download the project files**
 
 2. **Install dependencies**
@@ -72,6 +92,19 @@ For detailed instructions, refer to the [Lark Bot Documentation](https://open.la
 
 ### Start the Bot
 
+#### With Docker
+```bash
+# Start with Docker Compose
+npm run docker:up
+
+# View logs
+npm run docker:logs
+
+# Stop
+npm run docker:down
+```
+
+#### Direct Node.js
 ```bash
 # Production
 npm start
