@@ -17,10 +17,10 @@ const config = {
   serverUrls: process.env.SERVER_URLS
     ? process.env.SERVER_URLS.split(',').map(url => url.trim())
     : [
-        'https://httpbin.org/status/200',
-        'https://jsonplaceholder.typicode.com/posts/1',
-        'https://api.github.com'
-      ],
+      'https://httpbin.org/status/200',
+      'https://jsonplaceholder.typicode.com/posts/1',
+      'https://api.github.com'
+    ],
 
   // HTTP status codes considered as "server running"
   successStatusCodes: process.env.SUCCESS_STATUS_CODES

@@ -70,7 +70,7 @@ class ServerMonitoringBot {
    * Perform health check on all configured servers
    */
   async performHealthCheck() {
-    const timestamp = new Date().toISOString();
+    const timestamp = this.formatVietnamTime();
     console.log(`\n🔍 [${timestamp}] Starting health check...`);
 
     const checkPromises = config.serverUrls.map(url => this.checkServerHealth(url));
@@ -205,7 +205,7 @@ class ServerMonitoringBot {
           'Status: DOWN\n' +
           `Error: ${status.error || 'No response'}\n` +
           `Consecutive Failures: ${status.consecutiveFailures}\n` +
-          `Last Check: ${status.lastCheck.toISOString()}\n` +
+          `Last Check: ${this.formatVietnamTime(status.lastCheck)}\n` +
           '\nPlease investigate immediately!'
       }
     };
@@ -228,7 +228,7 @@ class ServerMonitoringBot {
           'Status: UP\n' +
           `Status Code: ${status.statusCode}\n` +
           `Response Time: ${status.responseTime}ms\n` +
-          `Recovery Time: ${status.lastCheck.toISOString()}\n` +
+          `Recovery Time: ${this.formatVietnamTime(status.lastCheck)}\n` +
           '\nServer is back online!'
       }
     };
@@ -271,6 +271,24 @@ class ServerMonitoringBot {
     }
     const urlObj = new URL(url);
     return `${urlObj.protocol}//${urlObj.hostname}/*****`;
+  }
+
+  /**
+   * Format date to Vietnam timezone
+   * @param {Date} date - Date to format
+   * @returns {string} Formatted date string
+   */
+  formatVietnamTime(date = new Date()) {
+    return date.toLocaleString('vi-VN', { 
+      timeZone: 'Asia/Ho_Chi_Minh',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
   }
 
   /**
