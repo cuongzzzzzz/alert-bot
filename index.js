@@ -73,6 +73,8 @@ class ServerMonitoringBot {
     const timestamp = this.formatVietnamTime();
     console.log(`\n🔍 [${timestamp}] Starting health check...`);
 
+    console.log({ urls: config.serverUrls });
+
     const checkPromises = config.serverUrls.map(url => this.checkServerHealth(url));
     const results = await Promise.allSettled(checkPromises);
 
@@ -279,7 +281,7 @@ class ServerMonitoringBot {
    * @returns {string} Formatted date string
    */
   formatVietnamTime(date = new Date()) {
-    return date.toLocaleString('vi-VN', { 
+    return date.toLocaleString('vi-VN', {
       timeZone: 'Asia/Ho_Chi_Minh',
       year: 'numeric',
       month: '2-digit',
